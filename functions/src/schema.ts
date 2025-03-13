@@ -6,3 +6,8 @@ export const responseSchema = z.object({
     //hitPoints: z.number().int().describe("The player's hit points (Required, non-negative)"),
     //damage: z.number().int().int().describe("The player's damage (Required, non-negative)")
 })
+
+export const characterSchema = z.object({
+    hitPoints: z.number().int().describe("Player hit points (Required, non-negative)."),
+    damage: z.number().int().describe("Attack damage (Required, non-negative)."),
+})

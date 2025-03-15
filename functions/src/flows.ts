@@ -90,7 +90,6 @@ export const greeter = ai.defineFlow(
 
 export const greeterCallable = onCallGenkit(
   {
-    enforceAppCheck: true,
     secrets: [apiKey],
   },
   greeter
@@ -194,7 +193,6 @@ export const generateEncounter = ai.defineFlow(
 
 export const generateEncounterCallable = onCallGenkit(
   {
-    enforceAppCheck: true,
     secrets: [apiKey],
   },
   generateEncounter

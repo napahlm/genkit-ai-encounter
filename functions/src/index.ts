@@ -143,7 +143,6 @@ export const performAction = ai.defineFlow(
 
 const performActionCallable = onCallGenkit(
   {
-    enforceAppCheck: true,
     secrets: [apiKey],
   },
   performAction

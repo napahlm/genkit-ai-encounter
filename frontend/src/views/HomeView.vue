@@ -1,9 +1,9 @@
 <template>
-    <div class="home">
-        <div class="battle">
-            <CharacterCard :name="'Player'" :hp="store.encounter?.playerCurrentHp" :maxHp="store.encounter?.playerHp"
+    <div class="main-container">
+        <div class="cards">
+            <CharacterCard :name="'Player'" :player="true" :hp="store.encounter?.playerCurrentHp" :maxHp="store.encounter?.playerHp"
                 :dmg="store.encounter?.playerDmg" />
-            <CharacterCard :name="'Enemy'" :hp="store.encounter?.enemyCurrentHp" :maxHp="store.encounter?.enemyHp"
+            <CharacterCard :name="'Enemy'" :player="false" :hp="store.encounter?.enemyCurrentHp" :maxHp="store.encounter?.enemyHp"
                 :dmg="store.encounter?.enemyDmg" />
         </div>
 
@@ -21,34 +21,27 @@ const store = useGenkitStore();
 </script>
 
 <style scoped>
-.home {
+.main-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    min-height: 100vh;
-    width: 100%;
-    max-width: 900px;
+    height: 100vh;
+    width: 80%;
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
+    gap: 12px;
 }
 
-.battle {
+.cards {
     display: flex;
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
+    gap: 12px;
+    flex-direction: row;
 }
 
 @media (max-width: 768px) {
-    .home {
-        max-width: 100%;
+    .main-container {
+        width: 100%;
         padding: 10px;
-    }
-
-    .battle {
-        align-items: center;
     }
 }
 </style>

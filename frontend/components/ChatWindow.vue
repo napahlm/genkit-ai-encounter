@@ -1,14 +1,16 @@
 <template>
-  <div class="chat-window">
-    <div class="chat-messages">
-      <ChatMessage v-for="(msg, index) in store.chatHistory" :key="index" :text="msg.text" :sender="msg.sender" />
+  <div class="chat-container">
+    <div class="chat-window">
+      <div class="chat-messages">
+        <ChatMessage v-for="(msg, index) in store.chatHistory" :key="index" :text="msg.text" :sender="msg.sender" />
+      </div>
     </div>
-  </div>
 
-  <div class="chat-input">
-    <input v-model="newMessage" placeholder="What will you do?" :disabled="!gameActive" />
-    <Button @click="sendMessage" :disabled="!gameActive">Send</Button>
-    <Button @click="store.generateEncounter()">Reset</Button>
+    <div class="chat-input">
+      <input v-model="newMessage" placeholder="What will you do?" :disabled="!gameActive" />
+      <Button @click="sendMessage" icon="pi pi-send" :disabled="!gameActive" />
+      <Button label="New encounter" @click="store.generateEncounter()" icon="pi pi-sparkles" class="encounter-btn" />
+    </div>
   </div>
 </template>
 
@@ -35,26 +37,41 @@ function sendMessage() {
 </script>
 
 <style scoped>
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 12px;
+  min-width: 320px;
+}
+
 .chat-window {
-  min-width: 400px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   border: 2px solid #444;
   border-radius: 10px;
   background: black;
   padding: 10px;
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
 }
 
 .chat-messages {
-  height: 300px;
+  flex: 1;
+  gap: 10px;
+  margin-top: 10px;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
 }
 
 .chat-input {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 8px;
+  align-items: center;
+}
+
+.chat-input input {
+  flex: 1;
+  min-width: 150px;
+  height: 100%;
 }
 </style>

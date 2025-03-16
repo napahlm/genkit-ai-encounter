@@ -9,6 +9,7 @@
 <script setup>
 defineProps({
   name: String,
+  player: Boolean,
   hp: Number,
   maxHp: Number,
   dmg: Number,
@@ -20,7 +21,7 @@ defineProps({
   border: 2px solid #444;
   padding: 10px;
   border-radius: 8px;
-  width: 200px;
+  width: 120px;
   text-align: center;
   background: rgba(0, 0, 0, 0.8);
   color: white;

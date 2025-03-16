@@ -76,6 +76,7 @@ export const useGenkitStore = defineStore("genkit", () => {
         elaborate: false,
       }
       gameActive.value = true;
+      chatHistory.value.push({ text: `${encounterData.lastNarrative}`, sender: "ai" });
     } catch (error) {
       console.error("Failed to generate encounter:", error);
     }
@@ -86,6 +87,8 @@ export const useGenkitStore = defineStore("genkit", () => {
       if (!encounter.value) {
         throw new Error("No encounter has been generated.");
       }
+
+      chatHistory.value.push({ text: `${action}`, sender: "player" });
 
       encounter.value.lastAction = action;
 
@@ -108,6 +111,8 @@ export const useGenkitStore = defineStore("genkit", () => {
       if (result.playerWon || result.enemyWon) {
         gameActive.value = false;
       }
+
+      chatHistory.value.push({ text: `${result.lastNarrative}`, sender: "ai" });
 
       console.log("Encounter action result:", data);
 

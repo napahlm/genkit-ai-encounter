@@ -8,8 +8,8 @@
 
     <div class="chat-input">
       <input v-model="newMessage" placeholder="What will you do?" :disabled="!gameActive" />
-      <Button @click="sendMessage" icon="pi pi-send" :disabled="!gameActive" />
-      <Button label="New encounter" @click="store.generateEncounter()" icon="pi pi-sparkles" class="encounter-btn" />
+      <Button class="input-btn" @click="sendMessage" icon="pi pi-send" :disabled="!gameActive" />
+      <Button class="input-btn" label="New encounter" @click="store.generateEncounter()" icon="pi pi-sparkles" />
     </div>
   </div>
 </template>
@@ -73,5 +73,24 @@ function sendMessage() {
   flex: 1;
   min-width: 150px;
   height: 100%;
+  border-radius: 6px;
+}
+
+.input-btn {
+  background-color: #388dce;
+  background-image: linear-gradient(45deg, #388dce 0%, #c8195f 100%) ;
+  border: 1px solid white;
+}
+
+.input-btn:hover {
+  background-image: linear-gradient(45deg, #388dce 0%, #c8195f 60%) !important;
+}
+
+.input-btn:disabled {
+  background-image: linear-gradient(45deg, grey 0%, darkgrey 100%) !important;
+}
+
+.input-btn:active {
+  transform: scale(0.97); /* Example for a "pressing down" effect */
 }
 </style>

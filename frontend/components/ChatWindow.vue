@@ -8,8 +8,8 @@
 
     <div class="chat-input">
       <input v-model="newMessage" placeholder="What will you do?" :disabled="!gameActive" />
-      <Button class="input-btn" @click="sendMessage" icon="pi pi-send" :disabled="!gameActive" />
-      <Button class="input-btn" label="New encounter" @click="store.generateEncounter()" icon="pi pi-sparkles" />
+      <Button class="input-btn" @click="sendMessage" :icon="store.actionLoading ? 'pi pi-spin pi-spinner' : 'pi pi-send'" :disabled="!gameActive || store.actionLoading" />
+      <Button class="encounter-btn input-btn" :class="{ active: gameActive || store.generateLoading }" :label="gameActive || store.generateLoading ? '' : 'Generate encounter'" @click="store.generateEncounter()" :icon="store.generateLoading ? 'pi pi-spin pi-spinner' : 'pi pi-sparkles'" :disabled="store.generateLoading" />
     </div>
   </div>
 </template>
@@ -57,6 +57,8 @@ function sendMessage() {
 }
 
 .chat-messages {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   gap: 10px;
   margin-top: 10px;
@@ -80,6 +82,9 @@ function sendMessage() {
   background-color: #388dce;
   background-image: linear-gradient(45deg, #388dce 0%, #c8195f 100%) ;
   border: 1px solid white;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: width 0.5s ease;
 }
 
 .input-btn:hover {
@@ -92,5 +97,13 @@ function sendMessage() {
 
 .input-btn:active {
   transform: scale(0.97); /* Example for a "pressing down" effect */
+}
+
+.encounter-btn {
+  width: 200px;
+}
+
+.encounter-btn.active {
+  width: 40px;
 }
 </style>

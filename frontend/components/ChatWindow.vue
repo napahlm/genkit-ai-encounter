@@ -7,7 +7,7 @@
     </div>
 
     <div class="chat-input">
-      <input v-model="newMessage" placeholder="What will you do?" :disabled="!gameActive" />
+      <InputText class="input-field" @keyup.enter="sendMessage" v-model="newMessage" placeholder="What will you do?" :disabled="!gameActive" />
       <Button class="input-btn" @click="sendMessage" :icon="store.actionLoading ? 'pi pi-spin pi-spinner' : 'pi pi-send'" :disabled="!gameActive || store.actionLoading" />
       <Button class="encounter-btn input-btn" :class="{ active: gameActive || store.generateLoading }" :label="gameActive || store.generateLoading ? '' : 'Generate encounter'" @click="store.generateEncounter()" :icon="store.generateLoading ? 'pi pi-spin pi-spinner' : 'pi pi-sparkles'" :disabled="store.generateLoading" />
     </div>
@@ -105,5 +105,9 @@ function sendMessage() {
 
 .encounter-btn.active {
   width: 40px;
+}
+
+.input-field:focus {
+  border-color: white !important;
 }
 </style>

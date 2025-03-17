@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { genkitGreet, genkitGenerateEncounter, genkitPerformAction } from "@/firebase";
+import { genkitGenerateEncounter, genkitPerformAction } from "@/firebase";
 
 // Existing minimal response interface from the encounter generation.
 interface EncounterResponse {
@@ -34,6 +34,8 @@ export const useGenkitStore = defineStore("genkit", () => {
   const encounter = ref<PerformActionState | null>(null);
   const gameActive = ref(false);
   const chatHistory = ref(<any[]>([]));
+  const generateLoading = ref(false);
+  const actionLoading = ref(false);
 
   // action
   function $reset() {
@@ -43,19 +45,10 @@ export const useGenkitStore = defineStore("genkit", () => {
     chatHistory.value = [];
   }
 
-  async function callGenkitFlow() {
-    try {
-      const { data } = await genkitGreet();
-      console.log("Genkit Response from Firebase:", data); // Add this line
-      response.value = data as string;
-    } catch (error) {
-      console.error("Genkit API call failed", error);
-    }
-  }
-
   async function generateEncounter() {
     try {
       $reset();
+      generateLoading.value = true;
       const { data } = await genkitGenerateEncounter();
       console.log("Encounter state:", data);
       const encounterData = data as EncounterResponse;
@@ -79,6 +72,8 @@ export const useGenkitStore = defineStore("genkit", () => {
       chatHistory.value.push({ text: `${encounterData.lastNarrative}`, sender: "ai" });
     } catch (error) {
       console.error("Failed to generate encounter:", error);
+    } finally {
+      generateLoading.value = false;
     }
   }
 
@@ -87,6 +82,8 @@ export const useGenkitStore = defineStore("genkit", () => {
       if (!encounter.value) {
         throw new Error("No encounter has been generated.");
       }
+
+      actionLoading.value = true;
 
       chatHistory.value.push({ text: `${action}`, sender: "player" });
 
@@ -118,6 +115,8 @@ export const useGenkitStore = defineStore("genkit", () => {
 
     } catch (error) {
       console.error("Error performing action:", error);
+    } finally {
+      actionLoading.value = false;
     }
   }
 
@@ -126,7 +125,8 @@ export const useGenkitStore = defineStore("genkit", () => {
     encounter,
     gameActive,
     chatHistory,
-    callGenkitFlow,
+    generateLoading,
+    actionLoading,
     generateEncounter,
     performAction,
     $reset,

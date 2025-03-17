@@ -1,5 +1,5 @@
 <template>
-  <div class="character-card">
+  <div v-if="name" :class="['character-card', isPlayer ? 'player-card' : 'enemy-card']">
     <h3>{{ name || "-" }}</h3>
     <p>HP: {{ hp ?? "-" }} / {{ maxHp ?? "-" }}</p>
     <p>DMG: {{ dmg ?? "-" }}</p>
@@ -7,13 +7,17 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from 'vue';
+
+const props = defineProps({
   name: String,
   player: Boolean,
   hp: Number,
   maxHp: Number,
   dmg: Number,
 });
+
+const isPlayer = computed(() => props.name?.toLowerCase() === 'player');
 </script>
 
 <style scoped>
@@ -25,5 +29,13 @@ defineProps({
   text-align: center;
   background: rgba(0, 0, 0, 0.8);
   color: white;
+}
+
+.player-card {
+  background-color: rgb(30, 70, 35);
+}
+
+.enemy-card {
+  background-color: rgb(80, 15, 15);
 }
 </style>

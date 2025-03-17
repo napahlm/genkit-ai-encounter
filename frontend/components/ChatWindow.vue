@@ -46,7 +46,7 @@ function sendMessage() {
 }
 
 .chat-window {
-  flex: 1;
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   border: 2px solid #444;
@@ -57,6 +57,7 @@ function sendMessage() {
 }
 
 .chat-messages {
+  flex: 1 1 0;
   display: flex;
   flex-direction: column;
   flex: 1;

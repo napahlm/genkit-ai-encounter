@@ -1,8 +1,8 @@
 <template>
   <div v-if="name" :class="['character-card', isPlayer ? 'player-card' : 'enemy-card']">
     <h3>{{ name || "-" }}</h3>
-    <p>HP: {{ hp ?? "-" }} / {{ maxHp ?? "-" }}</p>
-    <p>DMG: {{ dmg ?? "-" }}</p>
+    <p>HP: {{ hp ?? "-" }} / {{ maxHp ?? "" }}</p>
+    <p>DMG: {{ dmg ? "0-" + dmg : "-" }}</p>
   </div>
 </template>
 

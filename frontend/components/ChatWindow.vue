@@ -9,7 +9,7 @@
     <div class="chat-input">
       <InputText class="input-field" @keyup.enter="sendMessage" v-model="newMessage" placeholder="What will you do?" :disabled="!gameActive" />
       <Button class="input-btn" @click="sendMessage" :icon="store.actionLoading ? 'pi pi-spin pi-spinner' : 'pi pi-send'" :disabled="!gameActive || store.actionLoading" />
-      <Button class="encounter-btn input-btn" :class="{ active: gameActive || store.generateLoading }" :label="gameActive || store.generateLoading ? '' : 'Generate encounter'" @click="store.generateEncounter()" :icon="store.generateLoading ? 'pi pi-spin pi-spinner' : 'pi pi-sparkles'" :disabled="store.generateLoading" />
+      <Button class="encounter-btn input-btn" :class="{ active: gameActive || store.generateLoading }" :label="gameActive || store.generateLoading ? '' : 'Generate'" @click="store.generateEncounter()" :icon="store.generateLoading ? 'pi pi-spin pi-spinner' : 'pi pi-sparkles'" :disabled="store.generateLoading" />
     </div>
   </div>
 </template>
@@ -86,10 +86,13 @@ function sendMessage() {
   overflow: hidden;
   white-space: nowrap;
   transition: width 0.5s ease;
+  min-width: 40px;
+  height: 40px;
 }
 
 .input-btn:hover {
   background-image: linear-gradient(45deg, #388dce 0%, #c8195f 60%) !important;
+  border-color: white !important;
 }
 
 .input-btn:disabled {
@@ -101,7 +104,8 @@ function sendMessage() {
 }
 
 .encounter-btn {
-  width: 200px;
+  width: 120px;
+  flex-shrink: 0;
 }
 
 .encounter-btn.active {

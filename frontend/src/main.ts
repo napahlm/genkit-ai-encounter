@@ -8,6 +8,7 @@ import PrimeVue from "primevue/config";
 import Aura from "@primeuix/themes/aura";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
+import Fieldset from "primevue/fieldset";
 
 import App from "./App.vue";
 import router from "./router";
@@ -25,5 +26,6 @@ app.use(PrimeVue, {
 
 app.component("Button", Button);
 app.component("InputText", InputText);
+app.component("FieldSet", Fieldset);
 
 app.mount("#app");

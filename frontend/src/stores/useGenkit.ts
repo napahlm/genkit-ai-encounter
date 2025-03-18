@@ -28,12 +28,11 @@ interface PerformActionState {
 }
 
 export const useGenkitStore = defineStore("genkit", () => {
-
   // state
   const response = ref<string | undefined>(undefined); // test
   const encounter = ref<PerformActionState | null>(null);
   const gameActive = ref(false);
-  const chatHistory = ref(<any[]>([]));
+  const chatHistory = ref(<any[]>[]);
   const generateLoading = ref(false);
   const actionLoading = ref(false);
 
@@ -67,9 +66,13 @@ export const useGenkitStore = defineStore("genkit", () => {
         lastAction: "Initiated encounter.",
         fullNarrative: "Initial encounter: " + encounterData.lastNarrative,
         elaborate: false,
-      }
+      };
+
       gameActive.value = true;
-      chatHistory.value.push({ text: `${encounterData.lastNarrative}`, sender: "ai" });
+      generateLoading.value = false;
+
+      await streamMessage(`${encounterData.lastNarrative}`);
+
     } catch (error) {
       console.error("Failed to generate encounter:", error);
     } finally {
@@ -108,17 +111,41 @@ export const useGenkitStore = defineStore("genkit", () => {
       if (result.playerWon || result.enemyWon) {
         gameActive.value = false;
       }
-
-      let responsePrefix = result.elaborate ? '🔍' : '⚔️';
-      chatHistory.value.push({ text: `${responsePrefix} ${result.lastNarrative}`, sender: "ai" });
+      
+      actionLoading.value = false;
+      let responsePrefix = result.elaborate ? "🔍" : "⚔️";
+      await streamMessage(`${responsePrefix} ${result.lastNarrative}`);
 
       console.log("Encounter action result:", data);
-
     } catch (error) {
       console.error("Error performing action:", error);
     } finally {
       actionLoading.value = false;
     }
+  }
+
+  async function streamMessage(message: string): Promise<void> {
+    return new Promise<void>((resolve) => {
+      
+      const words = message.split(" ");
+      let streamedText = "";
+      let messageIndex = chatHistory.value.length;
+
+      // Add an empty AI message to be updated in real time
+      chatHistory.value.push({ text: "", sender: "ai" });
+
+      function addNextWord(index: number) {
+        if (index < words.length) {
+          streamedText += (index === 0 ? "" : " ") + words[index];
+          chatHistory.value[messageIndex].text = streamedText;
+
+          setTimeout(() => addNextWord(index + 1), 50); // Adjust delay for speed
+        } else {
+          resolve();
+        }
+      }
+      addNextWord(0);
+    });
   }
 
   return {
@@ -131,5 +158,5 @@ export const useGenkitStore = defineStore("genkit", () => {
     generateEncounter,
     performAction,
     $reset,
-  }
-})
+  };
+});

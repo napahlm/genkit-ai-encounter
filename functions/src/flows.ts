@@ -163,11 +163,11 @@ export const generateEncounter = ai.defineFlow(
     const prompt = `
       You are a creative and dynamic Dungeon Master. Your task is to generate a unique and engaging
       battle encounter between a heroic player and a formidable enemy, in the style of Dungeons & Dragons.
-      The battle should be designed to last up to around 10 turns.
+      The battle should be designed to last up to around 5-8 turns.
 
       Provide both a vivid narrative description and realistic numerical values that can be used in game mechanics.
-      Consider using balanced, game-ready numbers(for example, player hitpoints might be between 50 and 120,
-      player damage between 5 and 20, enemy hitpoints between 40 and 100, and enemy damage between 5 and 20).
+      Consider using balanced, game-ready numbers (for example, player hitpoints might be between 40 and 60,
+      player damage between 8 and 15, enemy hitpoints between 35 and 55, and enemy damage between 8 and 15).
 
       The narrative should set the scene succinctly and hint at the dynamic nature of the combat, without excessive detail.
 

@@ -31,7 +31,7 @@ const store = useGenkitStore();
 .main-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100dvh;
     width: 80%;
     margin: 0 auto;
     padding: 20px;

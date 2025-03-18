@@ -2,7 +2,6 @@
     <div class="main-container">
         <div class="app-title">
             <span class="title-text">AI Encounter</span>
-            <div class="divider"></div>
             <a href="https://github.com/napahlm" target="_blank" class="github-link">
                 <span class="username">napahlm</span>
                 <i class="pi pi-github"></i>
@@ -58,8 +57,9 @@ const store = useGenkitStore();
     top: 10px;
     right: 15px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 2px;
     font-size: 18px;
     font-weight: bold;
     color: white;

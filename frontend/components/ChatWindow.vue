@@ -1,8 +1,15 @@
 <template>
   <div class="chat-container">
     <div class="chat-window">
+      <div class="chat-content">
+        <Transition>
+      <div v-if="store.chatHistory.length === 0 && !store.generateLoading" class="welcome-dialog">
+        <p>Welcome to AI Encounter!<br>AI Encounter generates Dungeons & Dragons-style encounters and analyzes your input to determine whether you're taking an action (rolling for damage) or want an elaboration on the scenario.</p>
+      </div>
+      </Transition>
       <div class="chat-messages">
         <ChatMessage v-for="(msg, index) in store.chatHistory" :key="index" :text="msg.text" :sender="msg.sender" />
+      </div>
       </div>
     </div>
 
@@ -34,6 +41,7 @@ function sendMessage() {
     newMessage.value = "";
   }
 }
+
 </script>
 
 <style scoped>
@@ -54,6 +62,21 @@ function sendMessage() {
   background: black;
   padding: 10px;
   overflow: hidden;
+}
+
+.welcome-dialog {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  max-width: 300px;
 }
 
 .chat-messages {
@@ -114,5 +137,15 @@ function sendMessage() {
 
 .input-field:focus {
   border-color: white !important;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>

@@ -109,7 +109,8 @@ export const useGenkitStore = defineStore("genkit", () => {
         gameActive.value = false;
       }
 
-      chatHistory.value.push({ text: `${result.lastNarrative}`, sender: "ai" });
+      let responsePrefix = result.elaborate ? '🔍' : '⚔️';
+      chatHistory.value.push({ text: `${responsePrefix} ${result.lastNarrative}`, sender: "ai" });
 
       console.log("Encounter action result:", data);
 

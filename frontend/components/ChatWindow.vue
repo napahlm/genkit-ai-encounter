@@ -10,15 +10,15 @@
       </Transition>
       <div class="chat-messages">
         <ChatMessage v-for="(msg, index) in store.chatHistory" :key="index" :text="msg.text" :sender="msg.sender" />
+        <ChatMessage v-if="store.generateLoading || store.actionLoading" sender="ai" loading />
       </div>
-      <ChatMessage v-if="store.generateLoading || store.actionLoading" sender="ai" loading />
     </div>
   </div>
 
   <div class="chat-input">
     <InputText class="input-field" @keyup.enter="sendMessage" v-model="newMessage" placeholder="What will you do?"
       :disabled="!gameActive" />
-    <Button class="input-btn input-send" @click="sendMessage" :icon="store.actionLoading ? 'pi pi-spin pi-spinner' : 'pi pi-send'"
+    <Button class="input-btn" @click="sendMessage" :icon="store.actionLoading ? 'pi pi-spin pi-spinner' : 'pi pi-send'"
       :disabled="!gameActive || store.actionLoading" />
     <Button class="encounter-btn input-btn" :class="{ active: gameActive || store.generateLoading }"
       :label="gameActive || store.generateLoading ? '' : 'Generate'" @click="store.generateEncounter()"
@@ -160,14 +160,6 @@ function sendMessage() {
 
 .input-field:focus {
   border-color: white !important;
-}
-
-.input-send {
-  background-image: linear-gradient(45deg, #102378, #1593a4);
-}
-
-.input-send:hover {
-  background-image: linear-gradient(45deg, #102378 40%, #1593a4 100%) !important;
 }
 
 .v-enter-active,

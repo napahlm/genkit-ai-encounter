@@ -1,6 +1,9 @@
 # AI Encounter Agent
 
 ## Overview
+
+DEMO: https://ai-encounter.web.app/
+
 AI Encounter is an AI-powered agent designed to generate and manage dynamic Dungeons & Dragons-style battle encounters. The system uses a **Genkit AI agent** to interpret player actions, determine combat outcomes, and provide detailed narrative elaborations.
 
 ### **Key Features**
